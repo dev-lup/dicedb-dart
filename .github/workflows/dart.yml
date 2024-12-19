@@ -19,12 +19,12 @@ jobs:
         sdk: [stable, dev, 2.12.0]
         
     env:
-      REDIS_URL: localhost
-      REDIS_PORT: 6379
+      DICEDB_URL: localhost
+      DICEDB_PORT: 6379
       
     services:
       redis:
-        image: redis
+        image: dicedb
         ports: ['6379:6379']
         
     steps:

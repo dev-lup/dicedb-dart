@@ -7,7 +7,7 @@
  * Luka Rahne
  */
 
-part of redis;
+part of dicedb;
 
 class _WarningConnection {
   noSuchMethod(_) => throw RedisRuntimeError("Transaction in progress. "

@@ -7,7 +7,7 @@
  * Luka Rahne
  */
 
-part of redis;
+part of dicedb;
 
 // this class is returned when redis response is type error
 class RedisError {

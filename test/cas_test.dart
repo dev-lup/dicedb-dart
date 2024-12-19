@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'package:redis/redis.dart';
+import 'package:dicedb/dicedb.dart';
 import 'package:test/test.dart';
 
 import 'main.dart';

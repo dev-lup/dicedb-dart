@@ -7,7 +7,7 @@
  * Luka Rahne
  */
 
-part of redis;
+part of dicedb;
 
 /// Class for server connection on server
 class RedisConnection {

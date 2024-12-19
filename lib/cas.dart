@@ -7,7 +7,7 @@
  * Luka Rahne
  */
 
-part of redis;
+part of dicedb;
 
 class Cas {
   Command _cmd;

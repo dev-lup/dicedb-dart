@@ -1,4 +1,4 @@
-part of redis;
+part of dicedb;
 
 class _WarrningPubSubInProgress extends RedisConnection {
   RedisConnection _connection;

@@ -1,4 +1,4 @@
-part of redis;
+part of dicedb;
 /*
  * Free software licenced under 
  * MIT License 

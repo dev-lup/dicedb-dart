@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:redis/redis.dart';
+import 'package:dicedb/dicedb.dart';
 
 import 'main.dart';
 

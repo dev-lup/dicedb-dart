@@ -7,7 +7,7 @@
  * Luka Rahne
  */
 
-library redis;
+library dicedb;
 
 import 'dart:io';
 import 'dart:async';

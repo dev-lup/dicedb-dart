@@ -7,7 +7,7 @@
  * Luka Rahne
  */
 
-part of redis;
+part of dicedb;
 
 class RedisParser extends Parser {}
 

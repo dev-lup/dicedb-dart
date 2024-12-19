@@ -13,7 +13,7 @@
 
 //currently parser requrement is take_n and take_while methods
 
-part of redis;
+part of dicedb;
 
 // like Stream but has method next for simple reading
 class StreamNext {

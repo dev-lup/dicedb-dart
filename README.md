@@ -1,9 +1,9 @@
-Redis client for Dart
+DiceDB client for Dart
 =====================
 
-[![test master](https://github.com/ra1u/redis-dart/actions/workflows/dart.yml/badge.svg)](https://github.com/ra1u/redis-dart/actions/workflows/dart.yml?query=event%3Apush+branch%3Amaster)
+[![test master](https://github.com/ra1u/DiceDB-dart/actions/workflows/dart.yml/badge.svg)](https://github.com/ra1u/DiceDB-dart/actions/workflows/dart.yml?query=event%3Apush+branch%3Amaster)
 
-[Redis](http://redis.io/) protocol parser and client for [Dart](https://www.dartlang.org)  
+[DiceDB](http://dicedb.io/) protocol parser and client for [Dart](https://www.dartlang.org)  
 
 Fast and simple by design. It requires no external package to run.
 
@@ -17,26 +17,26 @@ Fast and simple by design. It requires no external package to run.
 
 ## Simple
 
-**redis** is simple serializer and deserializer of the [redis protocol](http://redis.io/topics/protocol) with additional helper functions and classes.
+**DiceDB** is simple serializer and deserializer of the [DiceDB protocol](http://DiceDB.io/topics/protocol) with additional helper functions and classes.
 
-Redis protocol is a composition of array, strings (and bulk) and integers.
+DiceDB protocol is a composition of array, strings (and bulk) and integers.
 
-For example a [SET](http://redis.io/commands/set) command might look like this:
+For example a [SET](http://DiceDB.io/commands/set) command might look like this:
 
 ```dart
 Future f = command.send_object(["SET","key","value"]);
 ```
 
 This enables sending any command. Before sending commands one needs to open a
-connection to Redis.
+connection to DiceDB.
 
-In the following example we will open a connection to a Redis server running on
+In the following example we will open a connection to a DiceDB server running on
 port 6379, execute the command 'SET key 0' and print the result.
 
 ```dart
-import 'package:redis/redis.dart';
+import 'package:DiceDB/DiceDB.dart';
 ...
-final conn = RedisConnection();
+final conn = DiceDBConnection();
 conn.connect('localhost', 6379).then((Command command){
     command.send_object(["SET","key","0"]).then((var response)
         print(response);
@@ -48,7 +48,7 @@ Due to the simple implementation, it is possible to execute commands in various
 ways. In the following example we execute one after the other.
 
 ```dart
-final conn = RedisConnection();
+final conn = DiceDBConnection();
 conn.connect('localhost', 6379).then((Command command){
   command.send_object(["SET","key","0"])
   .then((var response){
@@ -78,7 +78,7 @@ complete, and we can still be sure that the response handled by `Future` will be
 completed in the correct order.
 
 ```dart
-final conn = RedisConnection();
+final conn = DiceDBConnection();
 conn.connect('localhost',6379).then((Command command){
   command.send_object(["SET","key","0"])
   .then((var response){
@@ -108,25 +108,25 @@ and only one in the previous example.
 
 ### Generic
 
-Redis responses and requests can be arbitrarily nested. 
+DiceDB responses and requests can be arbitrarily nested. 
 
 Mapping
 
-| Redis         | Dart          |
+| DiceDB         | Dart          |
 | ------------- |:-------------:| 
 | String        | String        | 
 | Integer       | Integer       |
 | Array         | List          |
-| Error         | RedisError    |
+| Error         | DiceDBError    |
 | Bulk          | String or Binary |
 
-\* Both simple string and bulk string from Redis are serialized to Dart string.
-Strings from Dart to Redis are converted to bulk string. UTF8 encoding is used
+\* Both simple string and bulk string from DiceDB are serialized to Dart string.
+Strings from Dart to DiceDB are converted to bulk string. UTF8 encoding is used
 in both directions.
 
 New feature since 3.0: Support for converting received data as [binary data](#Binary data).
 
-Lists can be nested. This is useful when executing the [EVAL](http://redis.io/commands/EVAL) command.
+Lists can be nested. This is useful when executing the [EVAL](http://DiceDB.io/commands/EVAL) command.
 
 ```dart
 command.send_object(["EVAL","return {KEYS[1],{KEYS[2],{ARGV[1]},ARGV[2]},2}","2","key1","key2","first","second"])
@@ -143,10 +143,10 @@ results in
 
 ## Tls 
 
-Secure ssl/tls with `RedisConnection.connectSecure(host,port)`
+Secure ssl/tls with `DiceDBConnection.connectSecure(host,port)`
 
 ```dart
-final conn = RedisConnection();
+final conn = DiceDBConnection();
 conn.connectSecure('localhost', 6379).then((Command command) {
   command
       .send_object(["AUTH", "username", "password"]).then((var response) {
@@ -158,7 +158,7 @@ conn.connectSecure('localhost', 6379).then((Command command) {
 ```
 
 or by passing any other [`Socket`](https://api.dart.dev/stable/dart-io/Socket-class.html) to
-`RedisConnection.connectWithSocket(Socket s)` in similar fashion.
+`DiceDBConnection.connectWithSocket(Socket s)` in similar fashion.
 
 ## Fast
 
@@ -169,7 +169,7 @@ Example
 ```dart
 const int N = 200000;
 int start;
-final conn = RedisConnection();
+final conn = DiceDBConnection();
 conn.connect('localhost',6379).then((Command command){
   print("test started, please wait ...");
   start = DateTime.now().millisecondsSinceEpoch;
@@ -201,9 +201,9 @@ possible latency at the expense of more TCP packets and extra overhead. Enabling
 Nagle's algorithm during transactions can achieve greater data throughput and
 less overhead.
 
-## [Transactions](http://redis.io/topics/transactions)
+## [Transactions](http://DiceDB.io/topics/transactions)
 
-Transactions by redis protocol are started by MULTI command and completed with
+Transactions by DiceDB protocol are started by MULTI command and completed with
 EXEC command. `.multi()`, `.exec()` and `class Transaction` are implemented as
 helpers for checking the result of each command executed during transaction.
 
@@ -216,10 +216,10 @@ to execute commands by calling `.send_object`. It returns a `Future` that is
 called after calling `.exec()`.
 
 ```dart
-import 'package:redis/redis.dart';
+import 'package:DiceDB/DiceDB.dart';
 ...
 
-final conn = RedisConnection();
+final conn = DiceDBConnection();
 conn.connect('localhost',6379).then((Command command){
   command.multi().then((Transaction trans){
     trans.send_object(["SET","val","0"]);
@@ -236,11 +236,11 @@ conn.connect('localhost',6379).then((Command command){
 });
 ```
     
-### [CAS](http://redis.io/topics/transactions#cas)
+### [CAS](http://DiceDB.io/topics/transactions#cas)
 
 It's impossible to write code that depends on the result of the previous command 
 during a transaction, because all commands are executed at once. To overcome
-this, user should use the [CAS](http://redis.io/topics/transactions#cas).
+this, user should use the [CAS](http://DiceDB.io/topics/transactions#cas).
 
 `Cas` requires a `Command` as a constructor argument. It implements two methods:
 `watch` and `multiAndExec`.  
@@ -274,7 +274,7 @@ cas.multiAndExec((Transaction trans){
 ```
 
 Lets imagine we need to atomically increment the value of a key by 1 (and that
-Redis does not have the [INCR](http://redis.io/commands/incr) command).
+DiceDB does not have the [INCR](http://DiceDB.io/commands/incr) command).
 
 ```dart
 Cas cas = new Cas(command);
@@ -297,16 +297,16 @@ direction.
 
 ## Binary data
 
-Default conversion response from Redis of Bulk data is converted to utf-8 string. 
+Default conversion response from DiceDB of Bulk data is converted to utf-8 string. 
 In case when binary interpretation is needed, there is option to request such parsing.
 
 ```dart
-final conn = RedisConnection();
+final conn = DiceDBConnection();
 Command cmd = await conn.connect('localhost',6379);
-Command cmd_bin = Command.from(cmd).setParser(RedisParserBulkBinary());
+Command cmd_bin = Command.from(cmd).setParser(DiceDBParserBulkBinary());
 List<int> d = [1,2,3,4,5,6,7,8,9]; 
 // send binary
-await cmd_bin.send_object(["SET", key, RedisBulk(d)]);
+await cmd_bin.send_object(["SET", key, DiceDBBulk(d)]);
 // receive binary from binary command handler
 var r = await cmd_bin.send_object(["GET", key])
 // r is now same as d
@@ -314,7 +314,7 @@ var r = await cmd_bin.send_object(["GET", key])
 
 
 
-## [PubSub](http://redis.io/topics/pubsub)
+## [PubSub](http://dicedb.io/topics/pubsub)
 
 PubSub is a helper for dispatching received messages. First, create a new
 `PubSub` from an existing `Command`
@@ -341,10 +341,10 @@ Example for receiving and printing messages
 
 ```dart
 import 'dart:async';
-import 'package:redis/redis.dart';
+import 'package:DiceDB/DiceDB.dart';
 
 Future<void> rx() async {
-  Command cmd = await RedisConnection().connect('localhost', 6379);
+  Command cmd = await DiceDBConnection().connect('localhost', 6379);
   final pubsub = PubSub(cmd);
   pubsub.subscribe(["monkey"]);
   final stream = pubsub.getStream();
@@ -366,7 +366,7 @@ Future<void> rx() async {
 }
 
 Future<void> tx() async {
-  Command cmd = await RedisConnection().connect('localhost', 6379);
+  Command cmd = await DiceDBConnection().connect('localhost', 6379);
   await cmd.send_object(["PUBLISH", "monkey", "banana"]);
   await cmd.send_object(["PUBLISH", "monkey", "apple"]);
   await cmd.send_object(["PUBLISH", "monkey", "peanut"]);

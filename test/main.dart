@@ -9,7 +9,7 @@
 
 import 'dart:async';
 
-import 'package:redis/redis.dart';
+import 'package:dicedb/dicedb.dart';
 import 'package:test/test.dart';
 import 'dart:io' show Platform;
 

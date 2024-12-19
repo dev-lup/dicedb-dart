@@ -45,7 +45,7 @@ class Command {
     try {
       return _connection._sendraw(parser, serializer.serialize(obj)).then((v) {
         // turn RedisError into exception
-        if (v is RedisError) {
+        if (v is DiceDBError) {
           return Future.error(v);
         } else {
           return v;
@@ -80,7 +80,7 @@ class Command {
     return send_object(["MULTI"]).then((_) => Transaction(this));
   }
 
-  RedisConnection get_connection() {
+  DiceDBConnection get_connection() {
     return _connection;
   }
 }

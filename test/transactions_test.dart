@@ -39,7 +39,7 @@ void main() {
 
     //Test using command fail during transaction
     expect(() => cmd1.send_object(['SET', key, 0]),
-        throwsA(TypeMatcher<RedisRuntimeError>()),
+        throwsA(TypeMatcher<DiceDBRuntimeError>()),
         reason: "Command should not be usable during transaction");
 
     expect(trans.exec(), completion(equals("OK")),
@@ -49,7 +49,7 @@ void main() {
         reason: "Value should be final value $n after transaction complete");
 
     expect(() => trans.send_object(["GET", key]),
-        throwsA(TypeMatcher<RedisRuntimeError>()),
+        throwsA(TypeMatcher<DiceDBRuntimeError>()),
         reason:
             "Transaction object should not be usable after finishing transaction");
   });
@@ -67,7 +67,7 @@ void main() {
 
 //this doesnt use Cas class, but does same functionality
 Future test_incr_fakecas() {
-  RedisConnection();
+  DiceDBConnection();
   String key = "keycaswewe";
   return generate_connect().then((Command cmd) {
     cmd.send_object(["SETNX", key, "1"]);

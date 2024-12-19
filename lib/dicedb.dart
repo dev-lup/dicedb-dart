@@ -14,11 +14,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:collection';
 
-part './redisserialise.dart';
+part 'dicedbserialise.dart';
 part './connection.dart';
 part './lazystream.dart';
 part './transaction.dart';
-part './redisparser.dart';
+part 'dicedbparser.dart';
 part './command.dart';
 part './pubsub.dart';
 part './cas.dart';

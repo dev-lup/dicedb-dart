@@ -1,7 +1,7 @@
 part of dicedb;
 
-class _WarrningPubSubInProgress extends RedisConnection {
-  RedisConnection _connection;
+class _WarrningPubSubInProgress extends DiceDBConnection {
+  DiceDBConnection _connection;
   _WarrningPubSubInProgress(this._connection) {}
 
   _err() => throw "PubSub on this connaction in progress"

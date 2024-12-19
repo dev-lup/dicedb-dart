@@ -52,7 +52,7 @@ class Cas {
         } else {
           // exec completes only with valid response
           _completer_bool.completeError(
-              RedisError("exec response is not expected, but is $resp"));
+              DiceDBError("exec response is not expected, but is $resp"));
         }
       }).catchError((e) {
         // dont do anything

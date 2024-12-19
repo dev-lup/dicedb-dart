@@ -5,7 +5,7 @@ import 'main.dart';
 import 'dart:io';
 
 Future<Command> generate_connect_broken() {
-  return RedisConnection().connect("localhost", 2);
+  return DiceDBConnection().connect("localhost", 2);
 }
 
 main() {
@@ -35,4 +35,4 @@ main() {
   });
 }
 
-const Matcher isRedisError = TypeMatcher<RedisError>();
+const Matcher isRedisError = TypeMatcher<DiceDBError>();

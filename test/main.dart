@@ -29,7 +29,7 @@ void init_db_vars() {
 
 Future<Command> generate_connect() {
   init_db_vars();
-  return RedisConnection().connect(g_db_uri, g_db_port);
+  return DiceDBConnection().connect(g_db_uri, g_db_port);
 }
 
 void main() {

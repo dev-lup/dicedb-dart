@@ -10,11 +10,11 @@
 part of dicedb;
 
 // this class is returned when redis response is type error
-class RedisError {
+class DiceDBError {
   String e;
-  RedisError(this.e);
+  DiceDBError(this.e);
   String toString() {
-    return "RedisError($e)";
+    return "DiceDBError($e)";
   }
 
   String get error => e;
@@ -22,11 +22,11 @@ class RedisError {
 
 // thiss class is returned when parsing in client side (aka this libraray)
 // get error
-class RedisRuntimeError {
+class DiceDBRuntimeError {
   String e;
-  RedisRuntimeError(this.e);
+  DiceDBRuntimeError(this.e);
   String toString() {
-    return "RedisRuntimeError($e)";
+    return "DiceDBRuntimeError($e)";
   }
 
   String get error => e;

@@ -10,7 +10,7 @@
 part of dicedb;
 
 /// Class for server connection on server
-class RedisConnection {
+class DiceDBConnection {
   Socket? _socket;
   LazyStream? _stream;
   Future _future = Future.value();
